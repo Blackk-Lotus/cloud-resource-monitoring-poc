@@ -19,5 +19,5 @@ This project is a Proof of Concept (POC) for monitoring cloud resources using AW
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/cloud-resource-monitoring.git
+   git clone https://github.com/tandav333/cloud-resource-monitoring.git
    cd cloud-resource-monitoring
