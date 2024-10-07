@@ -1,5 +1,6 @@
 {
-    "limits": {
-        "max_uptime": 37
-    }
+  "AWS_REGION": "us-east-1",
+  "SNS_TOPIC_ARN": "your_sns_topic_arn",  // Replace with your actual SNS Topic ARN
+  "EC2_INSTANCE_LIMIT": 5,
+  "ALERT_EMAIL": "your_email@example.com"  // Replace with the email to receive alerts
 }
