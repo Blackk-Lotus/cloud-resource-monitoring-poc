@@ -1,23 +1,18 @@
-```python
-import os
+import json
 
-# AWS Lambda configuration settings
-AWS_REGION = os.environ.get('AWS_REGION', 'us-east-1')  # Default to us-east-1 if not set
-SNS_TOPIC_ARN = os.environ.get('SNS_TOPIC_ARN', '')     # Must be set in Lambda environment variables
-EC2_INSTANCE_LIMIT = int(os.environ.get('EC2_INSTANCE_LIMIT', 5))  # Default limit is 5
-ALERT_EMAIL = os.environ.get('ALERT_EMAIL', '')  # Must be set in Lambda environment variables
+def load_config():
+    with open('src/config.json') as config_file:
+        config = json.load(config_file)
+    return config
 
-def get_config():
-    return {
-        'AWS_REGION': AWS_REGION,
-        'SNS_TOPIC_ARN': SNS_TOPIC_ARN,
-        'EC2_INSTANCE_LIMIT': EC2_INSTANCE_LIMIT,
-        'ALERT_EMAIL': ALERT_EMAIL,
-    }
+config = load_config()
 
-if __name__ == "__main__":
-    # Print configuration settings for verification
-    config = get_config()
-    print("Configuration Settings:")
-    for key, value in config.items():
-        print(f"{key}: {value}")
+# Example usage of new fields
+monitoring_interval = config['MONITORING_INTERVAL']
+alert_threshold = config['ALERT_THRESHOLD']
+enable_logging = config['ENABLE_LOGGING']
+
+print(f"Monitoring every {monitoring_interval} seconds.")
+print(f"Alert threshold set to {alert_threshold} instances above limit.")
+if enable_logging:
+    print("Logging is enabled.")
