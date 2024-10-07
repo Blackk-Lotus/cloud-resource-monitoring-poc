@@ -1,6 +1,10 @@
-{
-  "AWS_REGION": "us-east-1",
-  "SNS_TOPIC_ARN": "your_sns_topic_arn",  // Replace with your actual SNS Topic ARN
-  "EC2_INSTANCE_LIMIT": 5,
-  "ALERT_EMAIL": "your_email@example.com"  // Replace with the email to receive alerts
-}
+config = load_config()
+
+# Example usage in your monitoring logic
+region = config['AWS_REGION']
+sns_topic_arn = config['SNS_TOPIC_ARN']
+ec2_instance_limit = config['EC2_INSTANCE_LIMIT']
+alert_email = config['ALERT_EMAIL']
+
+print(f"Monitoring EC2 instances in region: {region}")
+# Add the rest of your monitoring logic here
