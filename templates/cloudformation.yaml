@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  LambdaExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: LambdaEC2SNSPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ec2:DescribeInstances
+                  - sns:Publish
+                Resource: '*'
+
+  EC2MonitoringLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code:
+        S3Bucket: your-bucket  # Replace with your S3 bucket name
+        S3Key: src.zip
+      Runtime: python3.9
+      Environment:
+        Variables:
+          SNS_TOPIC_ARN: !Ref EC2AlertSNSTopic
+
+  EC2AlertSNSTopic:
+    Type: 'AWS::SNS::Topic'
+    Properties:
+      DisplayName: "EC2 Monitoring Alerts"
