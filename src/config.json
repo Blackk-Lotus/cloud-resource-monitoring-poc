@@ -1,10 +1,23 @@
-config = load_config()
+```python
+import os
 
-# Example usage in your monitoring logic
-region = config['AWS_REGION']
-sns_topic_arn = config['SNS_TOPIC_ARN']
-ec2_instance_limit = config['EC2_INSTANCE_LIMIT']
-alert_email = config['ALERT_EMAIL']
+# AWS Lambda configuration settings
+AWS_REGION = os.environ.get('AWS_REGION', 'us-east-1')  # Default to us-east-1 if not set
+SNS_TOPIC_ARN = os.environ.get('SNS_TOPIC_ARN', '')     # Must be set in Lambda environment variables
+EC2_INSTANCE_LIMIT = int(os.environ.get('EC2_INSTANCE_LIMIT', 5))  # Default limit is 5
+ALERT_EMAIL = os.environ.get('ALERT_EMAIL', '')  # Must be set in Lambda environment variables
 
-print(f"Monitoring EC2 instances in region: {region}")
-# Add the rest of your monitoring logic here
+def get_config():
+    return {
+        'AWS_REGION': AWS_REGION,
+        'SNS_TOPIC_ARN': SNS_TOPIC_ARN,
+        'EC2_INSTANCE_LIMIT': EC2_INSTANCE_LIMIT,
+        'ALERT_EMAIL': ALERT_EMAIL,
+    }
+
+if __name__ == "__main__":
+    # Print configuration settings for verification
+    config = get_config()
+    print("Configuration Settings:")
+    for key, value in config.items():
+        print(f"{key}: {value}")
