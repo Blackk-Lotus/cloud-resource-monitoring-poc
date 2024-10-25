@@ -1,6 +1,8 @@
 # Cloud Resource Monitoring POC
 ## Overview
-This project is a Proof of Concept (POC) for monitoring cloud resources using AWS Lambda and CloudFormation. The system checks the status of EC2 instances and sends alerts via Amazon SNS when resource limits are exceeded.
+This Proof of Concept (POC) project uses AWS to keep an eye on cloud resources, specifically EC2 instances, to make sure they don’t exceed preset thresholds. AWS Lambda runs the monitoring logic, which includes checking metrics such as instance health and usage. If anything goes over the defined limits—like CPU usage, memory, or instance count—a notification is automatically sent via Amazon SNS (Simple Notification Service).
+
+The infrastructure is set up using AWS CloudFormation, which means it’s easy to deploy and scale across different accounts or regions. This setup is ideal for spotting potential issues before they become problems and can help prevent unexpected cloud costs or resource constraints by staying proactive with real-time alerts.
 
 ## Features
 - **Monitor EC2 Instances**: Automatically checks the status of EC2 instances in your AWS account.
